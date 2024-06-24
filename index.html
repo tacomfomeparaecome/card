@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ta Com Fome? Para e Come!</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" ></script>
+       
+<head>
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="imagens/download-f0Dg0Q7hX-transformed (1).png" alt="Logo">
+            <h1 class="logo-title">Ta Com Fome? Para e Come!</h1>
+        </div>
+        <div class="button-finalize" onclick="showModal()">Finalizar Pedido</div>
+    </header>
+    <div class="container">  
+        <div class="menu-section">
+            <h1>Hamburguer</h1>
+            <div class="menu-item" id="item1">
+                <h3>Vegetariano</h3>
+                <img src="imagens/burger1.png" alt="Item 1">
+                <p>Pão, Mussarela, Ovo, Milho, Batata, Alface, Tomate</p>
+                <p class="price">R$10.00</p>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
+                </label>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
+                </label>
+                <div>
+                <input type="text" id="customization1" placeholder="Ingredientes a retirar">
+                <button class="add-to-cart-btn" onclick="addToCart('item1', 'Vegetariano', 10.00)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        
+            <div class="menu-item" id="item2">
+                <h3>Misto</h3>
+                <img src="imagens/burger2.png" alt="Item 2">
+                <p>Pão, Presunto, Mussarela</p>
+                <p class="price">R$12.00</p>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
+                </label>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
+                </label>
+                <div>
+                <input type="text" id="customization2" placeholder="Ingredientes a retirar">
+                <button class="add-to-cart-btn" onclick="addToCart('item2', 'Misto', 12.00)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            <div class="menu-item" id="item3">
+                <h3>Simples</h3>
+                <img src="imagens/burger3.png" alt="Item 3">
+                <p>Pão, Mussarela, Milho, Batata, Alface, Tomate</p>
+                <p class="price">R$8.00</p>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
+                </label>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
+                </label>
+                <div>
+                <input type="text" id="customization3" placeholder="Ingredientes a retirar">
+                <button class="add-to-cart-btn" onclick="addToCart('item3', 'Simples', 8.00)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            <div class="menu-item" id="item4">
+                <h3>Duplo</h3>
+                <img src="imagens/burger4.png" alt="Item 4">
+                <p>Pão, Mussarela, Ovo, Milho, Batata, Alface, Tomate, Bacon</p>
+                <p class="price">R$15.00</p>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
+                </label>
+                <label>
+                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
+                </label>
+                <div>
+                <input type="text" id="customization4" placeholder="Ingredientes a retirar">
+                <button class="add-to-cart-btn" onclick="addToCart('item4', 'Duplo', 15.00)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h2>Carrinho de Compras</h2>
+            <div id="cartItems"></div>
+            <h3>Total: R$<span id="cart-total">0.00</span></h3>
+            <p id="delivery-fee" style="display: none;">Taxa de Entrega: R$3.50</p>
+            <div class="delivery-method">
+                <h3>Método de Recebimento</h3>
+                <form id="order-form">
+                    <label>
+                        <input type="radio" name="delivery-method" value="delivery" onchange="toggleAddressFields()"> Entrega
+                    </label>
+                    <label>
+                        <input type="radio" name="delivery-method" value="pickup" onchange="toggleAddressFields()"> Retirada
+                    </label>
+                    <div id="address-container">
+                        <label for="address">Endereço:</label>
+                        <input type="text" id="address" name="address">
+                        <label for="district">Bairro:</label>
+                        <input type="text" id="district" name="district">
+                    </div>
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="payment-method">Método de Pagamento:</label>
+                    <select id="payment-method" name="payment-method" onchange="toggleTrocoField()">
+                        <option value="card">Cartão</option>
+                        <option value="cash">Dinheiro</option>
+                        <option value="pix">Pix</option>
+                    </select>
+                    <div id="troco-container">
+                        <label for="troco">Troco para:</label>
+                        <input type="text" id="troco" name="troco">
+                    </div>
+                </form>        
+            </div>
+            <div class="actions">
+                <button onclick="closeModal()">Cancelar</button>
+                <button onclick="finalizeOrder()">Confirmar Pedido</button>
+            </div>            
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Ta Com Fome? Para e Come! Todos os direitos reservados.</p>
+    </footer>
+   

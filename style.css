@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Honk&family=Rubik+Doodle+Shadow&display=swap');
+        
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #8c0a0a;
+    color: #0d0404;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header {
+    background-color:#8c0a0a;
+    color: #8c0a0a;
+    text-align: center;
+    padding: 1em 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+
+    
+}
+.logo-title {
+    margin: 30px;
+}
+.button-finalize {
+    background-color: #111010;
+    color: #f2eeee;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-top: 120px; /* Space for fixed header */
+}
+h1 {
+    font-family: 'Honk', serif;
+    font-size: 50px;
+    line-height: 74px;
+    margin-top: 70px;
+   
+}
+.menu-section {
+    background: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.menu-item {
+    margin-bottom: 20px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    color: #333;
+    font-weight: bold;
+}
+
+.menu-item img {
+    width: 10%;
+    height: 10%;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+h3 {
+    color: #333;
+    text-align: left;
+    font-size: 25px;
+    margin-top: 10px;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.menu-item h3 {
+    margin-top: 0;
+}
+.menu-item p {
+    margin: 5px 0;
+}
+
+.price {
+    font-size: 25px;
+    color: #1e08e1;
+    
+}
+button{   
+    background-color: #890404;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    clear: both;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: #f2fc83;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+.modal-close {
+    color: #222020;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.modal-close:hover,
+.modal-close:focus {
+    color: #e74949;
+    text-decoration: none;
+    cursor: pointer;
+}
+.cart-item .cart-item-content {
+    flex: 1;
+    margin-right: 10px;
+}
+.cart-item span {
+    display: block;
+}
+.cart-item p {
+    margin: 5px 0 0;
+}
+.cart-item button {
+    color: #0e0e0d;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.actions button {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.actions button:first-child {
+    margin-left: 0;
+}
+
+.actions button:last-child {
+    margin-right: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label,
+form input,
+form select {
+    margin:  5px 0;
+}
+
+form input[type="text"],
+form select {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+
+form input[type="button"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f91313;
+    color: #e71212;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="button"]:hover {
+    background-color: #eb0d0d;
+}
+
+#troco-container {
+    display: none;
+}
+
+#address-container {
+    display: none;
+}
+input[type="text"] {
+    width: 15%;
+    padding: 5px;
+    border: 2px solid #0a1fd7;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]::placeholder {
+    color: #0b0a0a;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    border-color: #5cb85c;
+    box-shadow: 0 0 5px rgba(92, 184, 92, 0.5);
+    outline: none;
+}
