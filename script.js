@@ -1,122 +1,161 @@
 let cart = [];
-const deliveryFee = 3.50;
+let currentItem = null;
+let basePrice = 0;
 
-function addToCart(id, name, price) {
-    let item = document.getElementById(id);
-    let extraIngredients = item.querySelectorAll('.extra-ingredient:checked');
-    let customization = item.querySelector(`#customization${id.replace('item', '')}`).value;
-    let extras = [];
-    let totalExtrasPrice = 0;
+function openCustomizationModal(itemId, itemName, itemPrice) {
+    currentItem = { id: itemId, name: itemName, price: itemPrice, addIngredients: '', removeIngredients: '' };
+    basePrice = itemPrice;
+    document.getElementById('customizationDetails').innerText = `Personalizando: ${itemName} - R$${itemPrice.toFixed(2)}`;
+    document.getElementById('removeIngredients').value = '';
+    document.getElementById('customizationTotal').innerText = itemPrice.toFixed(2);
+    document.getElementById('customizationModal').style.display = 'block';
 
-    extraIngredients.forEach(ingredient => {
-        extras.push(ingredient.value);
-        totalExtrasPrice += parseFloat(ingredient.dataset.price);
+    const addIngredients = document.getElementsByName('addIngredient');
+    addIngredients.forEach(radio => {
+        radio.checked = false;
+        radio.addEventListener('change', updateCustomizationTotal);
     });
-
-    cart.push({
-        id: id,
-        name: name,
-        price: price,
-        extras: extras,
-        customization: customization,
-        totalPrice: price + totalExtrasPrice
-    });
-
-    alert('Item adicionado ao carrinho');
 }
 
-function showModal() {
-    let modal = document.getElementById("cartModal");
-    let cartItems = document.getElementById("cartItems");
-    cartItems.innerHTML = '';
-
-    cart.forEach(item => {
-        let div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `
-            <div class="cart-item-content">
-                <span><strong>${item.name}</strong></span>
-                <span>Preço: R$${item.price.toFixed(2)}</span>
-                <span>Extras: ${item.extras.join(', ') || 'Nenhum'}</span>
-                <span>Personalização: ${item.customization || 'Nenhuma'}</span>
-                <span>Total: R$${item.totalPrice.toFixed(2)}</span>
-            </div>
-            <button onclick="removeFromCart('${item.id}')">Remover</button>
-        `;
-        cartItems.appendChild(div);
-    });
-
-    updateCartDisplay();
-    modal.style.display = "block";
+function closeCustomizationModal() {
+    document.getElementById('customizationModal').style.display = 'none';
 }
 
-function updateCartDisplay() {
-    const cartTotalElement = document.getElementById('cart-total');
+function updateCustomizationTotal() {
+    let total = basePrice;
+    const addIngredients = document.getElementsByName('addIngredient');
+    addIngredients.forEach(radio => {
+        if (radio.checked) {
+            total += parseFloat(radio.getAttribute('data-price'));
+        }
+    });
+    document.getElementById('customizationTotal').innerText = total.toFixed(2);
+}
+
+function addToCart() {
+    const addIngredients = document.getElementsByName('addIngredient');
+    let selectedAddIngredients = [];
+    addIngredients.forEach(radio => {
+        if (radio.checked) {
+            selectedAddIngredients.push(radio.value);
+        }
+    });
+    currentItem.addIngredients = selectedAddIngredients.join(', ');
+    currentItem.removeIngredients = document.getElementById('removeIngredients').value;
+    currentItem.price = parseFloat(document.getElementById('customizationTotal').innerText);
+    cart.push(currentItem);
+    closeCustomizationModal();
+    updateCart();
+}
+
+function updateCart() {
+    const cartItemsDiv = document.getElementById('cartItems');
+    cartItemsDiv.innerHTML = '';
     let total = 0;
+
     cart.forEach(item => {
-        total += item.totalPrice;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+            <p>${item.name}</p>
+            <p>Adicionar: ${item.addIngredients}</p>
+            <p>Retirar: ${item.removeIngredients}</p>
+            <p>Preço: R$${item.price.toFixed(2)}</p>
+        `;
+        cartItemsDiv.appendChild(itemDiv);
+        total += item.price;
     });
 
-    const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked');
-    const isDelivery = deliveryMethod && deliveryMethod.value === 'delivery';
-
-    if (isDelivery) {
-        total += deliveryFee;
-        document.getElementById('delivery-fee').style.display = 'block';
-    } else {
-        document.getElementById('delivery-fee').style.display = 'none';
-    }
-
-    cartTotalElement.textContent = total.toFixed(2);
+    document.getElementById('cart-total').innerText = total.toFixed(2);
 }
 
-function closeModal() {
-    let modal = document.getElementById("cartModal");
-    modal.style.display = "none";
+function showCartModal() {
+    document.getElementById('cartModal').style.display = 'block';
 }
 
-function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
-    showModal();
+function closeCartModal() {
+    document.getElementById('cartModal').style.display = 'none';
 }
 
 function toggleAddressFields() {
-    const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked');
     const addressContainer = document.getElementById('address-container');
-    addressContainer.style.display = deliveryMethod && deliveryMethod.value === 'delivery' ? 'block' : 'none';
-    updateCartDisplay();
+    const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked').value;
+    if (deliveryMethod === 'delivery') {
+        addressContainer.style.display = 'block';
+        document.getElementById('delivery-fee').style.display = 'block';
+    } else {
+        addressContainer.style.display = 'none';
+        document.getElementById('delivery-fee').style.display = 'none';
+    }
 }
 
 function toggleTrocoField() {
     const paymentMethod = document.getElementById('payment-method').value;
     const trocoContainer = document.getElementById('troco-container');
-    trocoContainer.style.display = paymentMethod === 'cash' ? 'block' : 'none';
+    if (paymentMethod === 'cash') {
+        trocoContainer.style.display = 'block';
+    } else {
+        trocoContainer.style.display = 'none';
+    }
 }
 
-function finalizeOrder() {
-    const name = document.getElementById('name').value;
-    const address = document.getElementById('address').value;
-    const district = document.getElementById('district').value;
-    const paymentMethod = document.getElementById('payment-method').value;
-    const troco = paymentMethod === 'cash' ? document.getElementById('troco').value : 'N/A';
+async function finalizeOrder() {
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    let yOffset = 10;
+    doc.text("Pedido Confirmado!", 10, yOffset);
+    yOffset += 10;
+
+    cart.forEach(item => {
+        doc.text(`Item: ${item.name}`, 10, yOffset);
+        yOffset += 10;
+        doc.text(`Adicionar: ${item.addIngredients}`, 10, yOffset);
+        yOffset += 10;
+        doc.text(`Retirar: ${item.removeIngredients}`, 10, yOffset);
+        yOffset += 10;
+        doc.text(`Preço: R$${item.price.toFixed(2)}`, 10, yOffset);
+        yOffset += 10;
+    });
+
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'pedido.pdf';
+    link.click();
 
     const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked').value;
-    const isDelivery = deliveryMethod === 'delivery';
+    const address = deliveryMethod === 'delivery' ? document.getElementById('address').value : 'Retirada no local';
+    const district = deliveryMethod === 'delivery' ? document.getElementById('district').value : '';
+    const name = document.getElementById('name').value;
+    const paymentMethod = document.getElementById('payment-method').value;
+    const troco = paymentMethod === 'cash' ? document.getElementById('troco').value : '';
 
-    if ((name && address && district && isDelivery) || (name && !isDelivery)) {
-        const total = parseFloat(document.getElementById('cart-total').textContent);
-        const orderDetails = `Pedido confirmado!\nNome: ${name}\nEndereço: ${address}\nBairro: ${district}\nMétodo de Pagamento: ${paymentMethod}\nTroco: ${troco}\nTotal: R$${total.toFixed(2)}`;
-        
-         // Enviar mensagem via WhatsApp
-         let whatsappNumber = "5532984885431";
-        let whatsappMessage = encodeURIComponent(orderDetails);
-        window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+    const whatsappMessage = `
+        Pedido Confirmado!
+        Nome: ${name}
+        Método de Recebimento: ${deliveryMethod}
+        Endereço: ${address}
+        Bairro: ${district}
+        Método de Pagamento: ${paymentMethod}
+        Troco para: ${troco}
+        Total: R$${document.getElementById('cart-total').innerText}
+    `;
 
-        
-        alert(orderDetails);
-        cart = [];
-        closeModal();
-    } else {
-        alert('Por favor, preencha todos os campos obrigatórios.');
-    }
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=5532984885431&text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    alert('Pedido confirmado! Em breve, entraremos em contato.');
+
+    closeCartModal();
+    cart = [];
+    updateCart();
+    document.getElementById('order-form').reset();
+    document.getElementById('address-container').style.display = 'none';
+    document.getElementById('troco-container').style.display = 'none';
 }

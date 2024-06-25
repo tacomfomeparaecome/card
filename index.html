@@ -4,21 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ta Com Fome? Para e Come!</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" ></script>
-       
-<head>
+    <link rel="stylesheet" href="styles1.css">
+    <script src="script1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="imagens/download-f0Dg0Q7hX-transformed (1).png" alt="Logo">
-            <h1 class="logo-title">Ta Com Fome? Para e Come!</h1>
+            <img src="imagens/download-f0Dg0Q7hX-transformed.png" alt="Logo">
         </div>
-        <div class="button-finalize" onclick="showModal()">Finalizar Pedido</div>
+        <div class="button-finalize" onclick="showCartModal()">Finalizar Pedido</div>
     </header>
-    <div class="container">  
+    <div class="container">
         <div class="menu-section">
             <h1>Hamburguer</h1>
             <div class="menu-item" id="item1">
@@ -26,71 +24,58 @@
                 <img src="imagens/burger1.png" alt="Item 1">
                 <p>Pão, Mussarela, Ovo, Milho, Batata, Alface, Tomate</p>
                 <p class="price">R$10.00</p>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
-                </label>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
-                </label>
-                <div>
-                <input type="text" id="customization1" placeholder="Ingredientes a retirar">
-                <button class="add-to-cart-btn" onclick="addToCart('item1', 'Vegetariano', 10.00)">Adicionar ao Carrinho</button>
-                </div>
+                <button class="add-to-cart-btn" onclick="openCustomizationModal('item1', 'Vegetariano', 10.00)">Adicionar ao Carrinho</button>
             </div>
-        
             <div class="menu-item" id="item2">
                 <h3>Misto</h3>
                 <img src="imagens/burger2.png" alt="Item 2">
                 <p>Pão, Presunto, Mussarela</p>
                 <p class="price">R$12.00</p>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
-                </label>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
-                </label>
-                <div>
-                <input type="text" id="customization2" placeholder="Ingredientes a retirar">
-                <button class="add-to-cart-btn" onclick="addToCart('item2', 'Misto', 12.00)">Adicionar ao Carrinho</button>
-                </div>
+                <button class="add-to-cart-btn" onclick="openCustomizationModal('item2', 'Misto', 12.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="menu-item" id="item3">
                 <h3>Simples</h3>
                 <img src="imagens/burger3.png" alt="Item 3">
                 <p>Pão, Mussarela, Milho, Batata, Alface, Tomate</p>
                 <p class="price">R$8.00</p>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
-                </label>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
-                </label>
-                <div>
-                <input type="text" id="customization3" placeholder="Ingredientes a retirar">
-                <button class="add-to-cart-btn" onclick="addToCart('item3', 'Simples', 8.00)">Adicionar ao Carrinho</button>
-                </div>
+                <button class="add-to-cart-btn" onclick="openCustomizationModal('item3', 'Simples', 8.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="menu-item" id="item4">
                 <h3>Duplo</h3>
                 <img src="imagens/burger4.png" alt="Item 4">
                 <p>Pão, Mussarela, Ovo, Milho, Batata, Alface, Tomate, Bacon</p>
                 <p class="price">R$15.00</p>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Bacon" data-price="2.00"> Bacon (+R$2.00)
-                </label>
-                <label>
-                    <input type="checkbox" class="extra-ingredient" value="Queijo" data-price="1.50"> Queijo (+R$1.50)
-                </label>
-                <div>
-                <input type="text" id="customization4" placeholder="Ingredientes a retirar">
-                <button class="add-to-cart-btn" onclick="addToCart('item4', 'Duplo', 15.00)">Adicionar ao Carrinho</button>
-                </div>
+                <button class="add-to-cart-btn" onclick="openCustomizationModal('item4', 'Duplo', 15.00)">Adicionar ao Carrinho</button>
             </div>
         </div>
     </div>
+
+    <!-- Modal for Customization -->
+    <div id="customizationModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCustomizationModal()">&times;</span>
+            <h2>Personalizar Pedido</h2>
+            <div id="customizationDetails"></div>
+            <label>Adicionar Ingredientes:</label>
+            <div id="addIngredients">
+                <label><input type="radio" name="addIngredient" value="Queijo Cheddar" data-price="2.00"> Queijo Cheddar (R$2.00)</label><br>
+                <label><input type="radio" name="addIngredient" value="Bacon" data-price="3.00"> Bacon (R$3.00)</label><br>
+                <label><input type="radio" name="addIngredient" value="Ovo" data-price="1.50"> Ovo (R$1.50)</label><br>
+            </div>
+            <label for="removeIngredients">Retirar Ingredientes:</label>
+            <input type="text" id="removeIngredients" placeholder="Ingredientes a retirar">
+            <h3>Total: R$<span id="customizationTotal">0.00</span></h3>
+            <div class="actions">
+                <button onclick="closeCustomizationModal()">Cancelar</button>
+                <button onclick="addToCart()">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <span class="modal-close" onclick="closeCartModal()">&times;</span>
             <h2>Carrinho de Compras</h2>
             <div id="cartItems"></div>
             <h3>Total: R$<span id="cart-total">0.00</span></h3>
@@ -122,15 +107,17 @@
                         <label for="troco">Troco para:</label>
                         <input type="text" id="troco" name="troco">
                     </div>
-                </form>        
+                </form>
             </div>
             <div class="actions">
-                <button onclick="closeModal()">Cancelar</button>
+                <button onclick="closeCartModal()">Cancelar</button>
                 <button onclick="finalizeOrder()">Confirmar Pedido</button>
-            </div>            
+            </div>
         </div>
     </div>
+
     <footer>
         <p>&copy; 2024 Ta Com Fome? Para e Come! Todos os direitos reservados.</p>
     </footer>
-   
+</body>
+</html>
