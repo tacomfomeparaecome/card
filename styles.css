@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Honk&family=Rubik+Doodle+Shadow&display=swap');
+
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #8c0a0a;
+    color: #0d0404;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos do cabeçalho */
+header {
+    background-color: #8c0a0a;
+    color: #f2eeee;
+    text-align: center;
+    padding: 0% 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Estilos do logo */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width:40% ;
+    height:50%;
+}
+
+.logo-title {
+    margin: 10px;
+}
+
+/* Estilos dos botões */
+.button-finalize {
+    background-color: #111010;
+    color: #f2eeee;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 90%; /* Ajustado para melhorar visualização em dispositivos menores */
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-top: 120px; /* Espaço para o cabeçalho fixo */
+    padding: 10px; /* Espaçamento interno para melhor legibilidade */
+    background-color: #f2f2f2; /* Cor de fundo para melhor contraste */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos dos títulos */
+h1 {
+    font-family: 'Honk', serif;
+    font-size: 30px; /* Reduzido para melhor adaptação em dispositivos móveis */
+    line-height: 1.2;
+    margin-top: 20px; /* Ajustado para melhor espaçamento */
+    text-align: center; /* Centralizado para melhor alinhamento */
+}
+
+/* Seção de menu */
+.menu-section {
+    background: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Item do menu */
+.menu-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.menu-item img {
+    width: 10%;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+h3.menu-item-title {
+    font-size: 20px; /* Ajustado para melhor adaptação em dispositivos móveis */
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.price {
+    font-size: 20px; /* Ajustado para melhor adaptação em dispositivos móveis */
+    color: #1e08e1;
+}
+
+/* Rodapé */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    clear: both;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #f2fc83;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; /* Ajustado para melhor adaptação em dispositivos móveis */
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+.modal-close {
+    color: #222020;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #e74949;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para itens do carrinho */
+.cart-item .cart-item-content {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.cart-item span {
+    display: block;
+}
+
+.cart-item p {
+    margin: 5px 0 0;
+}
+
+.cart-item button {
+    color: #0e0e0d;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Ações no carrinho */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.actions button {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.actions button:first-child {
+    margin-left: 0;
+}
+
+.actions button:last-child {
+    margin-right: 0;
+}
+
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label,
+form input,
+form select {
+    margin: 5px 0;
+}
+
+form input[type="text"],
+form select {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    width: 100%; /* Ajustado para ocupar toda a largura disponível */
+}
+
+form input[type="button"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f91313;
+    color: #e71212;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Ajustado para ocupar toda a largura disponível */
+}
+
+form input[type="button"]:hover {
+    background-color: #eb0d0d;
+}
+
+/* Container específico */
+#troco-container,
+#address-container {
+    display: none;
+}
+
+/* Estilos específicos para input de texto */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #0a1fd7;
+    border-radius: 4px;
+    font-size: 14px; /* Ajustado para melhor legibilidade */
+    margin-bottom: 10px;
+}
+
+input[type="text"]::placeholder {
+    color: #0b0a0a;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    border-color: #5cb85c;
+    box-shadow: 0 0 5px rgba(92, 184, 92, 0.5);
+    outline: none;
+}
+
+/* Media Queries para ajustes responsivos */
+@media only screen and (max-width: 768px) {
+    .container {
+        width: 95%; /* Reduz ainda mais para telas menores */
+        padding: 5px; /* Reduz padding para economizar espaço */
+    }
+
+    h1 {
+        font-size: 25px; /* Ajustado para melhor legibilidade */
+    }
+
+    .menu-item {
+        padding: 8px; /* Ajusta o padding dos itens do menu */
+    }
+
+    .menu-item img {
+        width: 30%; /* Ajusta o tamanho da imagem do menu */
+    }
+
+    .price {
+        font-size: 20px; /* Ajusta o tamanho da fonte do preço */
+    }
+
+    form input[type="text"],
+    form select {
+        font-size: 12px; /* Ajusta tamanho da fonte dos inputs */
+    }
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cart-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}

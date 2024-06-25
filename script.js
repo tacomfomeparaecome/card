@@ -99,63 +99,9 @@ function toggleTrocoField() {
     }
 }
 
-async function finalizeOrder() {
-    const { jsPDF } = window.jspdf;
-
-    const doc = new jsPDF();
-
-    let yOffset = 10;
-    doc.text("Pedido Confirmado!", 10, yOffset);
-    yOffset += 10;
-
-    cart.forEach(item => {
-        doc.text(`Item: ${item.name}`, 10, yOffset);
-        yOffset += 10;
-        doc.text(`Adicionar: ${item.addIngredients}`, 10, yOffset);
-        yOffset += 10;
-        doc.text(`Retirar: ${item.removeIngredients}`, 10, yOffset);
-        yOffset += 10;
-        doc.text(`Preço: R$${item.price.toFixed(2)}`, 10, yOffset);
-        yOffset += 10;
-    });
-
-    const pdfBlob = doc.output('blob');
-    const pdfUrl = URL.createObjectURL(pdfBlob);
-
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.download = 'pedido.pdf';
-    link.click();
-
-    const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked').value;
-    const address = deliveryMethod === 'delivery' ? document.getElementById('address').value : 'Retirada no local';
-    const district = deliveryMethod === 'delivery' ? document.getElementById('district').value : '';
-    const name = document.getElementById('name').value;
-    const paymentMethod = document.getElementById('payment-method').value;
-    const troco = paymentMethod === 'cash' ? document.getElementById('troco').value : '';
-
-    const whatsappMessage = `
-        Pedido Confirmado!
-        Nome: ${name}
-        Método de Recebimento: ${deliveryMethod}
-        Endereço: ${address}
-        Bairro: ${district}
-        Método de Pagamento: ${paymentMethod}
-        Troco para: ${troco}
-        Total: R$${document.getElementById('cart-total').innerText}
-    `;
-
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=5532984885431&text=${encodedMessage}`;
-
-    window.open(whatsappUrl, '_blank');
-
+function finalizeOrder() {
     alert('Pedido confirmado! Em breve, entraremos em contato.');
-
     closeCartModal();
     cart = [];
     updateCart();
-    document.getElementById('order-form').reset();
-    document.getElementById('address-container').style.display = 'none';
-    document.getElementById('troco-container').style.display = 'none';
 }
