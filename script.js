@@ -109,7 +109,19 @@ function finalizeOrder() {
         message += `Preço: R$${item.price.toFixed(2)}\n\n`;
     });
     const total = document.getElementById('cart-total').innerText;
-    message += `Total: R$${total}\n`;
+    message += `Total: R$${total}\n\n`;
+
+    // Adicionar informações de entrega ou retirada
+    const deliveryMethod = document.querySelector('input[name="delivery-method"]:checked').value;
+    if (deliveryMethod === 'delivery') {
+        const customerName = document.getElementById('customer-name').value;
+        const customerAddress = document.getElementById('customer-address').value;
+        const customerPhone = document.getElementById('customer-phone').value;
+        message += `Informações de Entrega:\nNome: ${customerName}\nEndereço: ${customerAddress}\nTelefone: ${customerPhone}\n`;
+    } else {
+        const customerName = document.getElementById('customer-name').value;
+        message += `Informações de Retirada:\nNome: ${customerName}\n`;
+    }
 
     // Redirecionar para o WhatsApp com a mensagem
     const whatsappUrl = `https://wa.me/5532984885431?text=${encodeURIComponent(message)}`;
