@@ -100,8 +100,33 @@ function toggleTrocoField() {
 }
 
 function finalizeOrder() {
-    alert('Pedido confirmado! Em breve, entraremos em contato.');
-    closeCartModal();
+    // Gerar a mensagem do pedido
+    let message = 'Pedido confirmado!\n\n';
+    cart.forEach(item => {
+        message += `Produto: ${item.name}\n`;
+        message += `Adicionar: ${item.addIngredients}\n`;
+        message += `Retirar: ${item.removeIngredients}\n`;
+        message += `Preço: R$${item.price.toFixed(2)}\n\n`;
+    });
+    const total = document.getElementById('cart-total').innerText;
+    message += `Total: R$${total}\n`;
+
+    // Redirecionar para o WhatsApp com a mensagem
+    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
+    // Resetar carrinho e dados do cliente
     cart = [];
+    document.getElementById('customer-name').value = '';
+    document.getElementById('customer-address').value = '';
+    document.getElementById('customer-phone').value = '';
+    document.getElementById('delivery-method').checked = false;
+    document.getElementById('payment-method').value = '';
+    document.getElementById('troco-container').style.display = 'none';
+    document.getElementById('address-container').style.display = 'none';
+    document.getElementById('delivery-fee').style.display = 'none';
     updateCart();
+
+    closeCartModal();
+    alert('Pedido confirmado! Em breve, entraremos em contato.');
 }
