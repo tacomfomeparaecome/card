@@ -124,7 +124,7 @@ function finalizeOrder() {
     }
 
     // Redirecionar para o WhatsApp com a mensagem
-    const whatsappUrl = `https://wa.me/5532984885431?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 
     // Resetar carrinho e dados do cliente
@@ -132,7 +132,10 @@ function finalizeOrder() {
     document.getElementById('customer-name').value = '';
     document.getElementById('customer-address').value = '';
     document.getElementById('customer-phone').value = '';
-    document.querySelector('input[name="delivery-method"]:checked').checked = false;
+    const deliveryRadios = document.querySelectorAll('input[name="delivery-method"]');
+    deliveryRadios.forEach(radio => {
+        radio.checked = false;
+    });
     document.getElementById('payment-method').value = '';
     document.getElementById('removeIngredients').value = '';
     const addIngredients = document.getElementsByName('addIngredient');
