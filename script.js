@@ -120,8 +120,13 @@ function finalizeOrder() {
     document.getElementById('customer-name').value = '';
     document.getElementById('customer-address').value = '';
     document.getElementById('customer-phone').value = '';
-    document.getElementById('delivery-method').checked = false;
+    document.querySelector('input[name="delivery-method"]:checked').checked = false;
     document.getElementById('payment-method').value = '';
+    document.getElementById('removeIngredients').value = '';
+    const addIngredients = document.getElementsByName('addIngredient');
+    addIngredients.forEach(radio => {
+        radio.checked = false;
+    });
     document.getElementById('troco-container').style.display = 'none';
     document.getElementById('address-container').style.display = 'none';
     document.getElementById('delivery-fee').style.display = 'none';
